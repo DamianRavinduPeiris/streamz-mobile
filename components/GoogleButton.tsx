@@ -45,11 +45,20 @@ const GoogleButton = () => {
       </Text>
       <Button
         icon={<GoogleIcon />}
-        title="Continue with Google"
+        title="Login with Google"
         buttonStyle={styles.button}
         titleStyle={styles.title}
         onPress={() => {
-          navigation.navigate("Auth" as never);
+          navigation.navigate("Login" as never);
+        }}
+      />
+       <Button
+        icon={<GoogleIcon />}
+        title="Signup with Google"
+        buttonStyle={styles.button}
+        titleStyle={styles.title}
+        onPress={() => {
+          navigation.navigate("Login" as never);
         }}
       />
     </View>
@@ -82,6 +91,7 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: "transparent",
     padding: 10,
+    margin: 10,
     borderRadius: 5,
     flexDirection: "row",
     alignItems: "center",
