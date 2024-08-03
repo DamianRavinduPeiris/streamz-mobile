@@ -1,8 +1,9 @@
-import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { Button } from "react-native-elements";
 import Svg, { Path } from "react-native-svg";
 import * as Font from "expo-font";
+import { useNavigation } from "@react-navigation/native";
+
 
 const loadFonts = () => {
   return Font.loadAsync({
@@ -13,6 +14,7 @@ const loadFonts = () => {
 loadFonts();
 
 const GoogleButton = () => {
+  const navigation  = useNavigation();
   const GoogleIcon = () => (
     <Svg viewBox="0 0 48 48" width="24" height="24">
       <Path
@@ -46,6 +48,9 @@ const GoogleButton = () => {
         title="Continue with Google"
         buttonStyle={styles.button}
         titleStyle={styles.title}
+        onPress={() => {
+          navigation.navigate("Auth" as never);
+        }}
       />
     </View>
   );
@@ -60,7 +65,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   headerText: {
-    fontSize: 30,
+    fontSize: 80,
     color: "white",
     fontWeight: "bold",
     marginBottom: 20,
@@ -68,7 +73,7 @@ const styles = StyleSheet.create({
     fontFamily: "TiltWarp",
   },
   paragraphText: {
-    fontSize: 13,
+    fontSize: 10,
     color: "white",
     marginBottom: 30,
     textAlign: "center",
