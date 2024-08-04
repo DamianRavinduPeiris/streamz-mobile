@@ -3,7 +3,7 @@ import { Button } from "react-native-elements";
 import Svg, { Path } from "react-native-svg";
 import * as Font from "expo-font";
 import { useNavigation } from "@react-navigation/native";
-
+import TypeWriter from "react-native-typewriter";
 
 const loadFonts = () => {
   return Font.loadAsync({
@@ -14,7 +14,7 @@ const loadFonts = () => {
 loadFonts();
 
 const GoogleButton = () => {
-  const navigation  = useNavigation();
+  const navigation = useNavigation();
   const GoogleIcon = () => (
     <Svg viewBox="0 0 48 48" width="24" height="24">
       <Path
@@ -38,7 +38,9 @@ const GoogleButton = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.headerText}>SRIFLIX</Text>
+      <TypeWriter style={styles.headerText} typing={1}>
+        SRIFLIX
+      </TypeWriter>
       <Text style={styles.paragraphText}>
         SriFlix is a free and open-source streaming platform that allows you to
         watch movies and TV shows.
@@ -52,7 +54,7 @@ const GoogleButton = () => {
           navigation.navigate("Login" as never);
         }}
       />
-       <Button
+      <Button
         icon={<GoogleIcon />}
         title="Signup with Google"
         buttonStyle={styles.button}

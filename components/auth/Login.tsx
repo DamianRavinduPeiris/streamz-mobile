@@ -31,7 +31,7 @@ const Login = () => {
           margin: 20,
         }}
         onChange={(e)=>{
-          setUserData({ ...userData, email: e.target.value });
+          // setUserData({ ...userData, email: e.target.value });
         }}
       />
       <TextInput
@@ -47,7 +47,7 @@ const Login = () => {
             onPress={toggleShowPassword}
           />
         }
-        onChangeText={(text) => setUserData({ ...userData, password: text })}
+        // onChangeText={(text) => setUserData({ ...userData, password: text })}
       />
       <Button
         mode="contained"
