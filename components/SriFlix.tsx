@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { View, Text, ImageBackground, StyleSheet } from "react-native";
+import { View,  ImageBackground, StyleSheet } from "react-native";
 
 import GoogleButton from "./GoogleButton";
 

@@ -39,10 +39,10 @@ const GoogleButton = () => {
   return (
     <View style={styles.container}>
       <TypeWriter style={styles.headerText} typing={1}>
-        SRIFLIX
+        STREAMZ
       </TypeWriter>
       <Text style={styles.paragraphText}>
-        SriFlix is a free and open-source streaming platform that allows you to
+        Streamz is a free and open-source streaming platform that allows you to
         watch movies and TV shows.
       </Text>
       <Button
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   headerText: {
-    fontSize: 80,
+    fontSize: 70,
     color: "white",
     fontWeight: "bold",
     marginBottom: 20,
