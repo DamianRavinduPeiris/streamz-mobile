@@ -47,22 +47,14 @@ const GoogleButton = () => {
       </Text>
       <Button
         icon={<GoogleIcon />}
-        title="Login with Google"
+        title="Continue with Google"
         buttonStyle={styles.button}
         titleStyle={styles.title}
         onPress={() => {
           navigation.navigate("Login" as never);
         }}
       />
-      <Button
-        icon={<GoogleIcon />}
-        title="Signup with Google"
-        buttonStyle={styles.button}
-        titleStyle={styles.title}
-        onPress={() => {
-          navigation.navigate("Login" as never);
-        }}
-      />
+      
     </View>
   );
 };
@@ -84,7 +76,7 @@ const styles = StyleSheet.create({
     fontFamily: "TiltWarp",
   },
   paragraphText: {
-    fontSize: 10,
+    fontSize: 12,
     color: "white",
     marginBottom: 30,
     textAlign: "center",

@@ -6,7 +6,7 @@ import GoogleButton from "./GoogleButton";
 
 
 
-export default function SriFlix() {
+export default function Streamz() {
   const navigation = useNavigation();
   return (
     <ImageBackground

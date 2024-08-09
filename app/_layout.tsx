@@ -2,7 +2,7 @@ import { Button, TamaguiProvider, createTamagui } from "tamagui";
 import { config } from "@tamagui/config/v3";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import SriFlix from "@/components/SriFlix";
+import Streamz from "@/components/Streamz";
 import Login from "@/components/auth/Login";
 
 
@@ -19,7 +19,7 @@ export default function _layout() {
     <NavigationContainer independent={true}>
       <TamaguiProvider config={tamaguiConfig}>
         <Stack.Navigator initialRouteName="SriFlix">
-          <Stack.Screen name="SriFlix" component={SriFlix} options={{ headerShown: false }}/>
+          <Stack.Screen name="Streamz" component={Streamz} options={{ headerShown: false }}/>
           <Stack.Screen name="Login" component={Login} />
         </Stack.Navigator>
       </TamaguiProvider>
