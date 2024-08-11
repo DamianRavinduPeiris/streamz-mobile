@@ -3,6 +3,7 @@ import axios from "axios";
 
 
 
+
 export async function fetchUser(email:string,assword:string) {
     try {
         return await axios.get(process.env.EXPO_PUBLIC_STREAMZ_BACKEND_URL + `user/search?email=${email}`)

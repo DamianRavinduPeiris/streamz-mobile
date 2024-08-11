@@ -118,7 +118,7 @@ const Login = () => {
                   let newUserResponse = await saveUser(newUser);
                   console.log('New User Response : ',newUserResponse?.data);
                   if(newUserResponse?.data.isSaved){
-                    await AsyncStorage.setItem("isExistingUser", "true");
+                    await AsyncStorage.setItem("isExistingUser", "false");
                     await AsyncStorage.setItem("user", JSON.stringify(newUser));
                     navigator.navigate("HomeScreen" as never);
                   }
