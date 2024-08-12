@@ -16,6 +16,7 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { FIREBASE_AUTH } from "@/FireBaseConfig";
 import  { fetchUser,saveUser } from "../commonfunctions/HandleUser";
 import UserType from "@/assets/types/UserType";
+import LinearProgressBar from '@/components/progressbar/LinearProgressBar'
 
 const Login = () => {
   const navigator = useNavigation();
@@ -51,11 +52,7 @@ const Login = () => {
           fun2={() => {}}
         />
       ) : null}
-      <ActivityIndicator
-        animating={isLoading}
-        color={MD2Colors.teal600}
-        size={"large"}
-      />
+      
       <TextInput
         label="Email"
         mode={"outlined"}
@@ -139,6 +136,7 @@ const Login = () => {
       >
         Login
       </Button>
+      {isLoading ? <LinearProgressBar /> : null}
     </View>
   );
 };

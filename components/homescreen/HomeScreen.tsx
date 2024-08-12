@@ -7,6 +7,7 @@ import MovieType from "@/assets/types/MovieType";
 import MovieCard from "@/components/card/MovieCard";
 import { Text } from 'react-native-paper';
 
+
 const HomeScreen = () => {
   const [user, setUserData] = useState<UserType>(null as never);
   const [movieData, setMovieData] = useState<MovieType[]>([]);
