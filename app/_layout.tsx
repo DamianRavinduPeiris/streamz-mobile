@@ -23,7 +23,7 @@ export default function _layout() {
         <Stack.Navigator initialRouteName="SriFlix">
           <Stack.Screen name="Streamz" component={Streamz} options={{ headerShown: false }}/>
           <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="HomeScreen" component={HomeScreen} />
+          <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ animation:"fade_from_bottom",headerShown:false}}/>
           
         </Stack.Navigator>
       </TamaguiProvider>

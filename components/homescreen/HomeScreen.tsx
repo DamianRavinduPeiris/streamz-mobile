@@ -5,12 +5,49 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, View, ScrollView } from "react-native";
 import MovieType from "@/assets/types/MovieType";
 import MovieCard from "@/components/card/MovieCard";
-import { Text } from 'react-native-paper';
+import { Text } from "react-native-paper";
+import * as Font from "expo-font";
+import { DrawerComponent } from "../drawer/DrawerComponent";
+import { Spinner } from "tamagui";
+import { fetchPopularTVShows } from "@/tmdb/FetchNowPlaying";
+import TVShowType from "@/assets/types/TVShowTypes";
 
 
 const HomeScreen = () => {
+  const [isEndReachedOnMovies, setIsEndReachedOnMovies] = useState(false);
+  const [isEndReachedOnTVShows, setIsEndReachedOnTVShows] = useState(false);
+  const[popularMoviePageNumber,setPopularMoviePageNumber]=useState<number>(1);
+  const[tvShowPageNumber,setTVShowPageNumber]=useState<number>(1);
+  const loadFonts = () => {
+    return Font.loadAsync({
+      TiltWarp: require("../../assets/fonts/TiltWarp-Regular.ttf"),
+    });
+  };
+
+  loadFonts();
+
+  const handleScrollOnPopularMovies = (event:any) => {
+    const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent;
+    const isEnd = contentOffset.x + layoutMeasurement.width >= contentSize.width - 20; // 20 is a buffer value
+    setIsEndReachedOnMovies(isEnd);
+    if (isEnd) {
+      setPopularMoviePageNumber(popularMoviePageNumber+1);
+    }
+  };
+
+  const handleScrollOnPopularTVShows = (event:any) => {
+    const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent;
+    const isEnd = contentOffset.x + layoutMeasurement.width >= contentSize.width - 20; // 20 is a buffer value
+    setIsEndReachedOnTVShows(isEnd);
+    if (isEnd) {
+      setTVShowPageNumber(tvShowPageNumber+1);
+    }
+  };
+  
   const [user, setUserData] = useState<UserType>(null as never);
-  const [movieData, setMovieData] = useState<MovieType[]>([]);
+  const [popularMovieData, setPopularMovieData] = useState<MovieType[]>([]);
+  const [popularTVShowData, setPopularTVShowData] = useState<TVShowType[]>([]);
+
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -23,9 +60,9 @@ const HomeScreen = () => {
         console.log("Something went wrong : ", error);
       }
     };
-    const fetchMovies = async () => {
+    const fetchPopularMovies = async () => {
       let movieArray: MovieType[] = [];
-      let movieData = await fetchPopular();
+      let movieData = await fetchPopular(popularMoviePageNumber);
       movieData.results.forEach((movie: MovieType) => {
         let movieInfo: MovieType = {
           id: movie.id,
@@ -39,42 +76,88 @@ const HomeScreen = () => {
 
         movieArray.push(movieInfo);
       });
-      setMovieData(movieArray);
+      setPopularMovieData(movieArray);
+      isEndReachedOnMovies && setIsEndReachedOnMovies(false);
+    };
+    const fetchPopluarTVShows = async () => {
+      let tvShowArray: TVShowType[] = [];
+      let tvShowData = await fetchPopularTVShows(tvShowPageNumber);
+      tvShowData.results.forEach((tvShow: TVShowType) => {
+        let tvShowInfo:TVShowType={
+          id:tvShow.id,
+          name:tvShow.name,
+          poster_path:`https://image.tmdb.org/t/p/original${tvShow.poster_path}`,
+          overview:tvShow.overview,
+          first_air_date:tvShow.first_air_date,
+          vote_average:tvShow.vote_average,
+          genre_ids:tvShow.genre_ids 
+        }
+
+        tvShowArray.push(tvShowInfo);
+      });
+      setPopularTVShowData(tvShowArray);
+      console.log(`Popular TV Show Data ${tvShowPageNumber}: `,tvShowArray);
+      isEndReachedOnTVShows && setIsEndReachedOnTVShows(false);
     };
     fetchUser();
-    fetchMovies();
-  }, []);
+    fetchPopularMovies();
+    fetchPopluarTVShows();
+  }, [popularMoviePageNumber,tvShowPageNumber]);
 
   return (
-    <View>
-      
+    <ScrollView>
+      <DrawerComponent />
       <Text variant="displayLarge" style={{
-        margin: 10,
-        fontSize: 30,
+        marginLeft:15,
+        fontSize: 20,
         fontWeight: "bold",
         color: "black",
-      }}>Popular</Text>
+        fontFamily:"TiltWarp",
+      }}>Popular Movies</Text>
+
+      <ScrollView
+        contentContainerStyle={{
+          flexDirection: "row",
+          alignItems: "center",
+          paddingVertical: 10,
+        }}
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        onScroll={handleScrollOnPopularMovies}
+        scrollEventThrottle={16}
+      >
+        {popularMovieData.map((movie: MovieType) => (
+          <MovieCard key={movie.id} data={movie} />
+        ))}
+      </ScrollView>
+      {isEndReachedOnMovies ? <Spinner size="large" color="$orange10" /> : null}
+      {isEndReachedOnTVShows ? <Spinner size="large" color="red" /> : null}
+      <Text variant="displayLarge" style={{
+        marginLeft:15,
+        fontSize: 20,
+        fontWeight: "bold",
+        color: "black",
+        fontFamily:"TiltWarp",
+      }}>Popular TV Shows</Text>
+      <ScrollView
+        contentContainerStyle={{
+          flexDirection: "row",
+          alignItems: "center",
+          paddingVertical: 10,
+        }}
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        onScroll={handleScrollOnPopularTVShows}
+        scrollEventThrottle={16}
+      >
+        {popularTVShowData.map((tvShow: TVShowType) => (
+          <MovieCard key={tvShow.id} data={tvShow} />
+        ))}
+      </ScrollView>
       
-    <ScrollView
-      contentContainerStyle={{
-        flexDirection: "row",
-        alignItems: "center",
-        paddingVertical: 10,
-        
-      }}
-      horizontal={true}
-      
-      showsHorizontalScrollIndicator={false}
-    >
-      
-      {movieData.map((movie: MovieType) => (
-        <MovieCard key={movie.id} movie={movie} />
-      ))}
-    </ScrollView>
-    </View>
+    </ScrollView  >
   );
 };
 
-const styles = StyleSheet.create({});
 
 export default HomeScreen;

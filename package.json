@@ -25,6 +25,7 @@
     "@tamagui/config": "^1.108.0",
     "@tamagui/dialog": "^1.108.0",
     "@tamagui/lucide-icons": "^1.108.0",
+    "@tamagui/portal": "^1.108.3",
     "@tamagui/toast": "^1.108.0",
     "axios": "^1.7.3",
     "expo": "~51.0.20",

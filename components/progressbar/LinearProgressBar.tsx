@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text } from "react-native";
-import { Button, LinearProgress } from "@rneui/themed";
+import {LinearProgress } from "@rneui/themed";
 
 const LinearProgressAPI: React.FunctionComponent = () => {
   return (
