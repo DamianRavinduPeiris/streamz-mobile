@@ -7,8 +7,15 @@ import {
   Modal,
   Image,
 } from "react-native";
+import { Avatar } from "tamagui";
 
-export const DrawerComponent = (): React.ReactElement => {
+interface drawerProps{
+    profilePic : string,
+    name : string,
+
+}
+
+export const DrawerComponent = ({profilePic,name}): React.ReactElement => {
   const [visible, setVisible] = React.useState(false);
   const [selectedTitle, setSelectedTitle] = React.useState("No items selected");
 
@@ -29,6 +36,21 @@ export const DrawerComponent = (): React.ReactElement => {
 
   const renderToggleButton = (): React.ReactElement => (
     <TouchableOpacity onPress={() => setVisible(true)} style={styles.button}>
+      <View style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        margin: 40,
+      }}>
+      <Avatar circular size="$10">
+        <Avatar.Image
+          accessibilityLabel="Cam"
+          src="https://instagram.fcmb11-1.fna.fbcdn.net/v/t51.2885-19/454491793_1032767625100838_626386122557271768_n.jpg?_nc_ht=instagram.fcmb11-1.fna.fbcdn.net&_nc_cat=102&_nc_ohc=A7Q7U6l_I4gQ7kNvgHLTVDO&edm=APHcPcMBAAAA&ccb=7-5&oh=00_AYDDZiZQL5FVH5ui3s3Xkev54mwKEgCXthXcRch_YSrAFg&oe=66C56A90&_nc_sid=bef7bc"
+          // src={profilePic}
+        />
+        <Avatar.Fallback backgroundColor="$blue10" />
+      </Avatar>
+      </View>
       <Text
         style={{
           fontSize: 20,
@@ -38,7 +60,8 @@ export const DrawerComponent = (): React.ReactElement => {
           marginBottom: 10,
         }}
       >
-        STREAMZ
+        {/* {name} */}
+        Damian Peiris.
       </Text>
     </TouchableOpacity>
   );
@@ -94,7 +117,6 @@ const styles = StyleSheet.create({
   },
   button: {
     padding: 10,
-  
   },
   backdrop: {
     flex: 1,

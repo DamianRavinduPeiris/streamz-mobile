@@ -11,6 +11,10 @@ import { DrawerComponent } from "../drawer/DrawerComponent";
 import { Spinner } from "tamagui";
 import { fetchPopularTVShows } from "@/tmdb/FetchNowPlaying";
 import TVShowType from "@/assets/types/TVShowTypes";
+import { StackNavigationProp } from '@react-navigation/stack';
+
+
+
 
 
 const HomeScreen = () => {
@@ -18,6 +22,8 @@ const HomeScreen = () => {
   const [isEndReachedOnTVShows, setIsEndReachedOnTVShows] = useState(false);
   const[popularMoviePageNumber,setPopularMoviePageNumber]=useState<number>(1);
   const[tvShowPageNumber,setTVShowPageNumber]=useState<number>(1);
+
+  
   const loadFonts = () => {
     return Font.loadAsync({
       TiltWarp: require("../../assets/fonts/TiltWarp-Regular.ttf"),
@@ -106,7 +112,7 @@ const HomeScreen = () => {
 
   return (
     <ScrollView>
-      <DrawerComponent />
+      <DrawerComponent  name={""} profilePic={""}/>
       <Text variant="displayLarge" style={{
         marginLeft:15,
         fontSize: 20,
