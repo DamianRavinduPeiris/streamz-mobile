@@ -3,11 +3,9 @@ import { StyleSheet, View } from "react-native";
 import {
   Button,
   TextInput,
-  ActivityIndicator,
-  MD2Colors,
+
 } from "react-native-paper";
-import axios from "axios";
-import Config from "react-native-config";
+
 
 import Alert from "../components/toast/Alert";
 import AsyncStorage from "@react-native-async-storage/async-storage";

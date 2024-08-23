@@ -11,7 +11,7 @@ import { DrawerComponent } from "../drawer/DrawerComponent";
 import { Spinner } from "tamagui";
 import { fetchPopularTVShows } from "@/tmdb/FetchNowPlaying";
 import TVShowType from "@/assets/types/TVShowTypes";
-import { StackNavigationProp } from '@react-navigation/stack';
+
 
 
 

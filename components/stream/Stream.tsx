@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
-import {
-  StyleSheet,
-  ScrollView,
-  ImageBackground,
-  Text,
-  View,
-} from "react-native";
-import { RouteProp } from "@react-navigation/native";
+import {StyleSheet,ScrollView,ImageBackground,Text,View,} from "react-native";
+import { RouteProp, useNavigation } from "@react-navigation/native";
+import { Button } from "react-native-paper";
 import { RootStackParamList } from "@/assets/types/RootStackParamList";
 import Genres from "@/assets/genres/genres.json";
-import { Button, Chip, Icon, MD3Colors,IconButton } from "react-native-paper";
+import { Chip } from "react-native-paper";
 import { WebView } from "react-native-webview";
+
 
 type StreamRouteProp = RouteProp<RootStackParamList, "Stream">;
 
@@ -18,6 +14,7 @@ const Stream = ({ route }: { route: StreamRouteProp }) => {
   const { data } = route.params;
   const [genres, setGenres] = useState<string[]>([]);
   const [isPlayed, setPlayStatus] = useState<boolean>(false);
+  const navigator = useNavigation();
 
   useEffect(() => {
     const genreArray: string[] = [];
@@ -40,7 +37,47 @@ const Stream = ({ route }: { route: StreamRouteProp }) => {
         alignItems: "center",
       }}
     >
-      <ImageBackground
+      {
+
+          isPlayed?
+          <> 
+          <WebView
+          source={{
+            uri: `${(process.env.EXPO_PUBLIC_MOVIE_STREAMING_URL ?? "").trim()}${
+              data.id
+            }`,
+          }}
+          startInLoadingState={true}
+          scalesPageToFit={true}
+          style={{
+            marginTop: 200,
+            width: 400,
+            height: 400,
+          }}
+        />  
+        <Button
+        mode="contained"
+        style={{
+          backgroundColor: "black",
+          margin: 10,
+          borderRadius: 50,
+          flexDirection: "row",
+          alignItems: "center",
+        }}
+
+        onPress={() => {
+          navigator.navigate("HomeScreen" as never);
+          
+        }}
+      >
+        Back to home
+      </Button>
+
+        
+        </>
+        
+        : <>
+        <ImageBackground
         source={{ uri: data.poster_path }}
         style={{ width: "100%", height: 500 }}
       />
@@ -82,27 +119,29 @@ const Stream = ({ route }: { route: StreamRouteProp }) => {
       >
         {data.overview}
       </Text>
-
-      <IconButton
-    icon="camera"
-    iconColor={MD3Colors.error50}
-    size={20}
-    onPress={() => console.log('Pressed')}
-  />
-
-      <WebView
-        source={{
-          uri: `${(process.env.EXPO_PUBLIC_MOVIE_STREAMING_URL ?? "").trim()}${
-            data.id
-          }`,
-        }}
-        startInLoadingState={true}
-        scalesPageToFit={true}
+      <Button
+        mode="contained"
         style={{
-          width: 400,
-          height: 400,
+          backgroundColor: "black",
+          width: 80,
+          margin: 10,
+          borderRadius: 50,
+          flexDirection: "row",
+          alignItems: "center",
         }}
-      />
+
+        onPress={() => {
+          setPlayStatus(true);
+        }}
+      >
+        Play
+      </Button>
+
+        </>
+
+      }
+      
+      
     </ScrollView>
   );
 };
